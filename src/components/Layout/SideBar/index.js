@@ -1,7 +1,11 @@
-import { NavLink } from 'react-router-dom';
+import { createElement, useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import classNames from 'classnames';
 import { BsInboxFill } from 'react-icons/bs';
 import { BsCalendar } from "react-icons/bs";
 import { BsCalendar3 } from "react-icons/bs";
+import { BsChevronRight } from "react-icons/bs";
+import { BsChevronDown } from "react-icons/bs";
 import './index.scss';
 
 const links = [
@@ -23,7 +27,27 @@ const links = [
   }
 ]
 
+function Projects() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div
+      className={classNames('projects', { open: isOpen })}
+      onClick={() => setIsOpen(!isOpen)}
+    >
+      {createElement(
+        isOpen
+          ? BsChevronDown
+          : BsChevronRight,
+        { className: 'projects__icon' }
+      )}Projects
+    </div>
+  );
+}
+
 export default function SideBar() {
+  const { pathname } = useLocation();
+
   return (
     <aside className="side-bar">
       <ul className="side-bar-list">
@@ -36,9 +60,10 @@ export default function SideBar() {
             >
               <Icon className="side-bar-list__item__icon" />{label}
             </NavLink>
+            {pathname === to && <Projects />}
           </li>
         )}
       </ul>
     </aside>
-  )
+  );
 }

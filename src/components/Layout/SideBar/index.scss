@@ -1,12 +1,13 @@
 .side-bar {
   &-list {
+    font-size: 16px;
+
     &__item {
       width: 300px;
 
       &__link {
         display: flex;
         padding: 20px 0 20px 20px;
-        font-size: 16px;
 
         &.active {
           font-weight: bold;
@@ -22,5 +23,21 @@
         margin-right: 10px;
       }
     }
+  }
+}
+
+.projects {
+  display: flex;
+  align-items: center;
+  padding: 15px 0 15px 20px;
+  border-bottom: 1px solid #f1f1f1;
+  cursor: pointer;
+
+  &.open {
+    font-weight: bold;
+  }
+
+  &__icon {
+    margin-right: 10px;
   }
 }
