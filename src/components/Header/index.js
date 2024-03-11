@@ -1,16 +1,17 @@
-import { CgMathPlus } from "react-icons/cg";
-import { SlGhost } from "react-icons/sl";
-import './index.css';
+import { Link } from "react-router-dom";
+import { BsPlusLg } from "react-icons/bs";
+import { BsSnapchat } from "react-icons/bs";
+import './index.scss';
 
 export default function Header() {
   return (
     <header className="header">
-      <a href="/">
+      <Link to="/">
         <img className="logo" src="/images/logo.png" alt="logo" />
-      </a>
+      </Link>
       <div className="header__right">
-        <CgMathPlus className="icon add" />
-        <SlGhost className="icon ghost" />
+        <BsPlusLg className="icon add" />
+        <BsSnapchat className="icon ghost" />
       </div>
     </header>
   )
