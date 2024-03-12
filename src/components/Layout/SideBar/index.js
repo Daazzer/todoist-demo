@@ -2,10 +2,11 @@ import { createElement, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import { BsInboxFill } from 'react-icons/bs';
-import { BsCalendar } from "react-icons/bs";
-import { BsCalendar3 } from "react-icons/bs";
-import { BsChevronRight } from "react-icons/bs";
-import { BsChevronDown } from "react-icons/bs";
+import { BsCalendar } from 'react-icons/bs';
+import { BsCalendar3 } from 'react-icons/bs';
+import { BsChevronRight } from 'react-icons/bs';
+import { BsChevronDown } from 'react-icons/bs';
+import { BsPlus } from 'react-icons/bs';
 import './index.scss';
 
 const links = [
@@ -28,19 +29,36 @@ const links = [
 ]
 
 function Projects() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div
-      className={classNames('projects', { open: isOpen })}
-      onClick={() => setIsOpen(!isOpen)}
-    >
-      {createElement(
-        isOpen
-          ? BsChevronDown
-          : BsChevronRight,
-        { className: 'projects__icon' }
-      )}Projects
+    <div className="projects">
+      <div
+        className={classNames('projects-trigger', { open: isOpen })}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {createElement(
+          isOpen
+            ? BsChevronDown
+            : BsChevronRight,
+          { className: 'projects-trigger__icon' }
+        )}Projects
+      </div>
+      {isOpen && <ul className="projects-list">
+        <li className="projects-list__item">
+          <i className="color-tag" />
+          <span className="emoji">🙌</span>
+          <span className="title">THE OFFICE</span>
+        </li>
+        <li className="projects-list__item">
+          <i className="color-tag" />
+          <span className="emoji">🙌</span>
+          <span className="title">THE OFFICE</span>
+        </li>
+      </ul>}
+      <div className="projects-add-btn">
+        <BsPlus className="projects-add-btn__icon" />Add Project
+      </div>
     </div>
   );
 }
