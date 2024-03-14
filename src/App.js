@@ -3,9 +3,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import Inbox from './pages/Inbox';
-import Today from './pages/Today';
-import Next7days from './pages/Next7days';
+import Index from './pages/Index';
 import Layout from './components/Layout';
 import './App.scss';
 
@@ -15,9 +13,7 @@ function App() {
       <div className="App">
         <Layout>
           <Switch>
-            <Route exact path="/" component={Inbox} />
-            <Route path="/today" component={Today} />
-            <Route path="/next7days" component={Next7days} />
+            <Route exact path="/" component={Index} />
           </Switch>
         </Layout>
       </div>

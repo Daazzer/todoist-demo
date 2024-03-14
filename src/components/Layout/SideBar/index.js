@@ -1,45 +1,48 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import classNames from 'classnames';
 import { BsInboxFill } from 'react-icons/bs';
 import { BsCalendar } from 'react-icons/bs';
 import { BsCalendar3 } from 'react-icons/bs';
 import Projects from './Projects';
 import './index.scss';
 
-const links = [
+const sideBarItems = [
   {
-    to: '/',
-    exact: true,
+    key: 'inbox',
     Icon: BsInboxFill,
     label: 'Inbox'
   },
   {
-    to: '/today',
+    key: 'today',
     Icon: BsCalendar,
     label: 'Today'
   },
   {
-    to: '/next7days',
+    key: 'next7days',
     Icon: BsCalendar3,
     label: 'Next7days'
   }
 ]
 
 export default function SideBar() {
-  const { pathname } = useLocation();
+  const [currentActive, setCurrentActive] = useState('');
 
   return (
     <aside className="side-bar">
       <ul className="side-bar-list">
-        {links.map(({ to, label, exact, Icon }) =>
-          <li key={to} className="side-bar-list__item">
-            <NavLink
-              className="side-bar-list__item__link"
-              exact={exact}
-              to={to}
-            >
+        {sideBarItems.map(({ key, label, Icon }) =>
+          <li
+            key={key}
+            className="side-bar-list__item"
+            onClick={() => setCurrentActive(key)}
+          >
+            <div className={classNames(
+              'side-bar-list__item__dropdown',
+              { active: currentActive === key }
+            )}>
               <Icon className="side-bar-list__item__icon" />{label}
-            </NavLink>
-            {pathname === to && <Projects />}
+            </div>
+            {currentActive === key && <Projects />}
           </li>
         )}
       </ul>
