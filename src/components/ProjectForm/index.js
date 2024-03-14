@@ -1,8 +1,3 @@
-import { createElement, useState } from 'react';
-import classNames from 'classnames';
-import { BsChevronRight } from 'react-icons/bs';
-import { BsChevronDown } from 'react-icons/bs';
-import { BsPlus } from 'react-icons/bs';
 import './index.scss';
 
 /** @type {Array<{ value: string; label: string }>} */
@@ -29,9 +24,10 @@ const emojis = [
   }
 ];
 
-function ProjectForm({ onClose }) {
+
+export default function ProjectForm({ isShow = false, onClose }) {
   return (
-    <div className="project-form-wrapper">
+    isShow && <div className="project-form-wrapper">
       <form className="project-form">
         <h2 className="project-form__title">
           Add Project
@@ -69,43 +65,6 @@ function ProjectForm({ onClose }) {
           />
         </div>
       </form>
-    </div>
-  );
-}
-
-export default function Projects() {
-  const [isOpen, setIsOpen] = useState(true);
-  const [isProjectFormOpen, setIsProjectFormOpen] = useState(false);
-
-  return (
-    <div className="projects">
-      <div
-        className={classNames('projects-trigger', { open: isOpen })}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {createElement(
-          isOpen
-            ? BsChevronDown
-            : BsChevronRight,
-          { className: 'projects-trigger__icon' }
-        )}Projects
-      </div>
-      {isOpen && <ul className="projects-list">
-        <li className="projects-list__item">
-          <i className="color-tag" />
-          <span className="emoji">🙌</span>
-          <span className="title">THE OFFICE</span>
-        </li>
-        <li className="projects-list__item">
-          <i className="color-tag" />
-          <span className="emoji">🙌</span>
-          <span className="title">THE OFFICE</span>
-        </li>
-      </ul>}
-      <div className="projects-add-btn" onClick={() => setIsProjectFormOpen(true)}>
-        <BsPlus className="projects-add-btn__icon" />Add Project
-      </div>
-      {isProjectFormOpen && <ProjectForm onClose={() => setIsProjectFormOpen(false)} />}
     </div>
   );
 }

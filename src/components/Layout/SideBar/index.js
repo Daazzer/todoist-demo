@@ -4,7 +4,7 @@ import { BsInboxFill } from 'react-icons/bs';
 import { BsCalendar } from 'react-icons/bs';
 import { BsCalendar3 } from 'react-icons/bs';
 import { selectCurrentActive, setCurrentActiveAction } from '@/store/reducers/currentActiveSlice';
-import Projects from './Projects';
+import Projects from '@/components/Projects';
 import './index.scss';
 
 const sideBarItems = [
