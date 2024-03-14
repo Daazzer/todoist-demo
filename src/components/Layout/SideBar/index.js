@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { BsInboxFill } from 'react-icons/bs';
 import { BsCalendar } from 'react-icons/bs';
 import { BsCalendar3 } from 'react-icons/bs';
+import { selectCurrentActive, setCurrentActiveAction } from '@/store/reducers/currentActiveSlice';
 import Projects from './Projects';
 import './index.scss';
 
@@ -25,7 +26,8 @@ const sideBarItems = [
 ]
 
 export default function SideBar() {
-  const [currentActive, setCurrentActive] = useState('');
+  const dispatch = useDispatch();
+  const currentActive = useSelector(selectCurrentActive);
 
   return (
     <aside className="side-bar">
@@ -34,7 +36,7 @@ export default function SideBar() {
           <li
             key={key}
             className="side-bar-list__item"
-            onClick={() => setCurrentActive(key)}
+            onClick={() => dispatch(setCurrentActiveAction(key))}
           >
             <div className={classNames(
               'side-bar-list__item__dropdown',
