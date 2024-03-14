@@ -1,8 +1,14 @@
 const initState = '';
-const SET_CURRENT_ACTIVE = 'set/currentActive';
 
-export const setCurrentActiveAction = payload => ({
-  type: SET_CURRENT_ACTIVE,
+/**
+ * @enum {string}
+ */
+const CURRENT_ACTIVE = {
+  SET: 'currentActive/set'
+};
+
+export const currentActiveSetAction = payload => ({
+  type: CURRENT_ACTIVE.SET,
   payload
 });
 
@@ -10,9 +16,10 @@ export const selectCurrentActive = state => state.currentActive;
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
-    case SET_CURRENT_ACTIVE:
+    case CURRENT_ACTIVE.SET:
       return action.payload;
-    default: return state;
+    default:
+      return state;
   }
 };
 

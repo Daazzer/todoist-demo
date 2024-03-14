@@ -58,4 +58,28 @@
       width: 80px;
     }
   }
+
+  &__footer {
+    display: flex;
+    padding: 20px 20px 10px;
+
+    &__button+&__button {
+      margin-left: 20px;
+    }
+
+    &__button {
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 20px;
+      background-color: #fff;
+      border: 1px solid #999;
+      cursor: pointer;
+      
+      &--confirm {
+        border: 0;
+        color: #fff;
+        background-color: #db4c3f;
+      }
+    }
+  }
 }

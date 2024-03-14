@@ -3,9 +3,10 @@ import classNames from 'classnames';
 import { BsInboxFill } from 'react-icons/bs';
 import { BsCalendar } from 'react-icons/bs';
 import { BsCalendar3 } from 'react-icons/bs';
-import { selectCurrentActive, setCurrentActiveAction } from '@/store/reducers/currentActiveSlice';
+import { selectCurrentActive, currentActiveSetAction } from '@/store/reducers/currentActiveSlice';
 import Projects from '@/components/Projects';
 import './index.scss';
+import { selectProjects } from '@/store/reducers/projectsSlice';
 
 const sideBarItems = [
   {
@@ -28,6 +29,12 @@ const sideBarItems = [
 export default function SideBar() {
   const dispatch = useDispatch();
   const currentActive = useSelector(selectCurrentActive);
+  const projects = useSelector(selectProjects);
+  const onCurrentItemClick = key => {
+    if (!currentActive || currentActive !== key) {
+      dispatch(currentActiveSetAction(key));
+    }
+  };
 
   return (
     <aside className="side-bar">
@@ -36,15 +43,17 @@ export default function SideBar() {
           <li
             key={key}
             className="side-bar-list__item"
-            onClick={() => dispatch(setCurrentActiveAction(key))}
           >
-            <div className={classNames(
-              'side-bar-list__item__dropdown',
-              { active: currentActive === key }
-            )}>
+            <div
+              className={classNames(
+                'side-bar-list__item__dropdown',
+                { active: currentActive === key }
+              )}
+              onClick={() => onCurrentItemClick(key)}
+            >
               <Icon className="side-bar-list__item__icon" />{label}
             </div>
-            {currentActive === key && <Projects />}
+            {currentActive === key && <Projects items={projects.filter(project => project.type === key)} />}
           </li>
         )}
       </ul>

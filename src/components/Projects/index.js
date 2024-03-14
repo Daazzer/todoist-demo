@@ -1,14 +1,27 @@
 import { createElement, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { BsChevronRight } from 'react-icons/bs';
 import { BsChevronDown } from 'react-icons/bs';
 import { BsPlus } from 'react-icons/bs';
 import ProjectForm from '@/components/ProjectForm';
+import { selectCurrentActive } from '@/store/reducers/currentActiveSlice';
+import { projectsAddAction } from '@/store/reducers/projectsSlice';
 import './index.scss';
 
-export default function Projects() {
+const emojisMap = {
+  handsUp: '🙌',
+  rocket: '🚀',
+  target: '🎯',
+  books: '📚',
+  music: '🎵'
+};
+
+export default function Projects({ items = [] }) {
   const [isOpen, setIsOpen] = useState(true);
   const [isProjectFormOpen, setIsProjectFormOpen] = useState(false);
+  const currentActive = useSelector(selectCurrentActive);
+  const dispatch = useDispatch();
 
   return (
     <div className="projects">
@@ -24,21 +37,23 @@ export default function Projects() {
         )}Projects
       </div>
       {isOpen && <ul className="projects-list">
-        <li className="projects-list__item">
-          <i className="color-tag" />
-          <span className="emoji">🙌</span>
-          <span className="title">THE OFFICE</span>
-        </li>
-        <li className="projects-list__item">
-          <i className="color-tag" />
-          <span className="emoji">🙌</span>
-          <span className="title">THE OFFICE</span>
-        </li>
+        {items.map(item =>
+          <li key={item.id} className="projects-list__item">
+            <i className="color-tag" style={{ backgroundColor: item.color }} />
+            <span className="emoji">{emojisMap[item.emoji]}</span>
+            <span className="title">{item.title}</span>
+          </li>
+        )}
       </ul>}
       <div className="projects-add-btn" onClick={() => setIsProjectFormOpen(true)}>
         <BsPlus className="projects-add-btn__icon" />Add Project
       </div>
-      <ProjectForm isShow={isProjectFormOpen} onClose={() => setIsProjectFormOpen(false)} />
+      <ProjectForm
+        type={currentActive}
+        isShow={isProjectFormOpen}
+        onClose={() => setIsProjectFormOpen(false)}
+        onConfirm={project => dispatch(projectsAddAction(project))}
+      />
     </div>
   );
 }
