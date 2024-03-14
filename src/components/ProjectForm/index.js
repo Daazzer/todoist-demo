@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { uuid } from '@/utils';
 import './index.scss';
 
@@ -26,10 +26,11 @@ const emojis = [
   }
 ];
 
+const defaultEmoji = emojis[0].value;
 
 export default function ProjectForm({ type, isShow = false, onConfirm, onClose }) {
   const [color, setColor] = useState('#000000');
-  const [emoji, setEmoji] = useState(emojis[0].value);
+  const [emoji, setEmoji] = useState(defaultEmoji);
   const [title, setTitle] = useState('');
 
   const onConfirmClick = () => {
@@ -42,6 +43,12 @@ export default function ProjectForm({ type, isShow = false, onConfirm, onClose }
     });
     onClose();
   };
+
+  useEffect(() => {
+    setColor('#000000');
+    setEmoji(defaultEmoji);
+    setTitle('');
+  }, [isShow]);
 
   return (
     isShow && <div className="project-form-wrapper">
