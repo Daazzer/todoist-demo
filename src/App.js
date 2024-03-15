@@ -3,8 +3,9 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import Index from './pages/Index';
 import Layout from './components/Layout';
+import Index from './pages/Index';
+import Project from './pages/Project';
 import './App.scss';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Layout>
           <Switch>
             <Route exact path="/" component={Index} />
+            <Route path="/:type/:id" component={Project} />
           </Switch>
         </Layout>
       </div>

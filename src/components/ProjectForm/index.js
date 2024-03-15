@@ -28,12 +28,13 @@ const emojis = [
 
 const defaultEmoji = emojis[0].value;
 
-export default function ProjectForm({ type, isShow = false, onConfirm, onClose }) {
+export default function ProjectForm({ type, label, isShow = false, onConfirm, onClose }) {
   const [color, setColor] = useState('#000000');
   const [emoji, setEmoji] = useState(defaultEmoji);
   const [title, setTitle] = useState('');
 
   const onConfirmClick = () => {
+    if (!title) return;
     onConfirm({
       id: uuid(),
       type,
@@ -45,16 +46,18 @@ export default function ProjectForm({ type, isShow = false, onConfirm, onClose }
   };
 
   useEffect(() => {
-    setColor('#000000');
-    setEmoji(defaultEmoji);
-    setTitle('');
+    if (isShow) {
+      setColor('#000000');
+      setEmoji(defaultEmoji);
+      setTitle('');
+    }
   }, [isShow]);
 
   return (
     isShow && <div className="project-form-wrapper">
       <form className="project-form">
         <h2 className="project-form__title">
-          Add Project
+          Add Project For {label}
           <button className="close-btn" type="button" onClick={onClose}>×</button>
         </h2>
         <div className="project-form__field">

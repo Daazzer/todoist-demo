@@ -1,6 +1,6 @@
 /**
  * @typedef Project
- * @property {string} type
+ * @property {"inbox"|"today"|"next7days"} type
  * @property {string} id
  * @property {string} color
  * @property {string} emoji
@@ -8,7 +8,36 @@
  */
 
 /** @type {Project[]} */
-const initState = [];
+const initState = [
+  {
+    type: 'inbox',
+    id: 'test1',
+    color: '#fe1574',
+    emoji: 'handsUp',
+    title: 'THE OFFICEOFFICEOFFICEOFFICEOFFICEOFFICEOFFICEOFFICE'
+  },
+  {
+    type: 'today',
+    id: 'test2',
+    color: '#fe1574',
+    emoji: 'handsUp',
+    title: 'THE OFFICE'
+  },
+  {
+    type: 'next7days',
+    id: 'test3',
+    color: '#fe1574',
+    emoji: 'handsUp',
+    title: 'THE OFFICE'
+  },
+  {
+    type: 'next7days',
+    id: 'test4',
+    color: '#1e1a74',
+    emoji: 'handsUp',
+    title: 'THE OFFICE'
+  }
+];
 
 /**
  * @enum {string}

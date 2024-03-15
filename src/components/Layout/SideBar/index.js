@@ -4,9 +4,9 @@ import { BsInboxFill } from 'react-icons/bs';
 import { BsCalendar } from 'react-icons/bs';
 import { BsCalendar3 } from 'react-icons/bs';
 import { selectCurrentActive, currentActiveSetAction } from '@/store/reducers/currentActiveSlice';
-import Projects from '@/components/Projects';
-import './index.scss';
 import { selectProjects } from '@/store/reducers/projectsSlice';
+import Projects from './Projects';
+import './index.scss';
 
 const sideBarItems = [
   {
@@ -53,7 +53,7 @@ export default function SideBar() {
             >
               <Icon className="side-bar-list__item__icon" />{label}
             </div>
-            {currentActive === key && <Projects items={projects.filter(project => project.type === key)} />}
+            {currentActive === key && <Projects label={label} items={projects.filter(project => project.type === key)} />}
           </li>
         )}
       </ul>

@@ -1,12 +1,14 @@
 import { createElement, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
+import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import { BsChevronRight } from 'react-icons/bs';
 import { BsChevronDown } from 'react-icons/bs';
 import { BsPlus } from 'react-icons/bs';
+import { BsX } from 'react-icons/bs';
 import ProjectForm from '@/components/ProjectForm';
 import { selectCurrentActive } from '@/store/reducers/currentActiveSlice';
-import { projectsAddAction } from '@/store/reducers/projectsSlice';
+import { projectsAddAction, projectsDelAction, selectProjects } from '@/store/reducers/projectsSlice';
 import './index.scss';
 
 const emojisMap = {
@@ -17,11 +19,30 @@ const emojisMap = {
   music: '🎵'
 };
 
-export default function Projects({ items = [] }) {
+export default function Projects({ label, items = [] }) {
+  const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(true);
   const [isProjectFormOpen, setIsProjectFormOpen] = useState(false);
+  const store = useStore();
   const currentActive = useSelector(selectCurrentActive);
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const onProjectsDelClick = (e, item) => {
+    e.preventDefault();
+    dispatch(projectsDelAction(item.id));
+    const projects = selectProjects(store.getState());
+    const items = projects.filter(project => project.type === item.type);
+    const type = pathname.slice(1).split('/')[0];
+    if (type !== item.type) {
+      return;
+    } else if (items.length) {
+      const lastItem = items[items.length - 1];
+      history.push(`/${lastItem.type}/${lastItem.id}`);
+    } else {
+      history.push('/');
+    }
+  };
 
   return (
     <div className="projects">
@@ -38,10 +59,19 @@ export default function Projects({ items = [] }) {
       </div>
       {isOpen && <ul className="projects-list">
         {items.map(item =>
-          <li key={item.id} className="projects-list__item">
-            <i className="color-tag" style={{ backgroundColor: item.color }} />
-            <span className="emoji">{emojisMap[item.emoji]}</span>
-            <span className="title">{item.title}</span>
+          <li
+            key={item.id}
+            className="projects-list__item"
+          >
+            <NavLink
+              className="projects-list__item-nav-link"
+              to={`/${item.type}/${item.id}`}
+            >
+              <i className="color-tag" style={{ backgroundColor: item.color }} />
+              <span className="emoji">{emojisMap[item.emoji]}</span>
+              <span className="title">{item.title}</span>
+              <BsX className="del-btn" onClick={e => onProjectsDelClick(e, item)} />
+            </NavLink>
           </li>
         )}
       </ul>}
@@ -49,6 +79,7 @@ export default function Projects({ items = [] }) {
         <BsPlus className="projects-add-btn__icon" />Add Project
       </div>
       <ProjectForm
+        label={label}
         type={currentActive}
         isShow={isProjectFormOpen}
         onClose={() => setIsProjectFormOpen(false)}

@@ -26,12 +26,21 @@
     }
 
     &__item {
-      display: flex;
-      align-items: center;
+      position: relative;
       cursor: pointer;
+
+      &-nav-link {
+        display: flex;
+        align-items: center;
+
+        &.active {
+          font-weight: bold;
+        }
+      }
 
       .color-tag {
         display: inline-block;
+        flex-shrink: 0;
         width: 6px;
         height: 6px;
         margin-right: 5px;
@@ -39,8 +48,23 @@
       }
 
       .emoji {
+        flex-shrink: 0;
         font-size: 20px;
         margin-right: 5px;
+      }
+
+      .title {
+        margin-right: 40px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      .del-btn {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
       }
     }
   }
