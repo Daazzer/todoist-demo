@@ -1,0 +1,23 @@
+.project {
+  padding: 20px;
+
+  &__title {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  &__todo-list {
+    margin-bottom: 20px;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid #999;
+
+      .checkbox {
+        margin-right: 10px;
+      }
+    }
+  }
+}
