@@ -14,9 +14,11 @@
       align-items: center;
       padding: 20px 0;
       border-bottom: 1px solid #eee;
+      word-break: break-all;
       cursor: pointer;
 
       .checkbox {
+        flex-shrink: 0;
         margin-right: 10px;
 
         &.checked {

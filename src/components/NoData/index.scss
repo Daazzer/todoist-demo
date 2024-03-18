@@ -1,0 +1,12 @@
+.no-data {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding: 20px 0;
+  color: #999;
+
+  &__icon {
+    margin-bottom: 20px;
+    font-size: 50px;
+  }
+}

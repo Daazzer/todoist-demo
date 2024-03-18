@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { BsCircle, BsCheckCircleFill, BsPlus } from 'react-icons/bs';
 import { selectProjects } from '@/store/reducers/projectsSlice';
 import { selectTodoList, todoListAddAction, todoListToggleAction } from '@/store/reducers/todoListSlice';
+import NoData from '@/components/NoData';
 import './index.scss';
 
 const emojisMap = {
@@ -53,7 +54,7 @@ export default function Project() {
         {project.title}
       </h2>
       <ul className="project__todo-list">
-        {todoList.map(todoListItem =>
+        {todoList.length ? todoList.map(todoListItem =>
           <li
             key={todoListItem.id}
             className="project__todo-list__item"
@@ -62,10 +63,15 @@ export default function Project() {
               isDone: !todoListItem.isDone
             }))}
           >
-            {createElement(todoListItem.isDone ? BsCheckCircleFill : BsCircle, { className: classNames('checkbox', { checked: todoListItem.isDone }) })}
+            {createElement(
+              todoListItem.isDone
+                ? BsCheckCircleFill
+                : BsCircle,
+              { className: classNames('checkbox', { checked: todoListItem.isDone }) }
+            )}
             <p className="content">{todoListItem.text}</p>
           </li>
-        )}
+        ) : <NoData />}
       </ul>
       <button className="project__add-task-btn" onClick={onAddTaskClick}>
         <BsPlus className="project__add-task-btn__icon" />Add Task

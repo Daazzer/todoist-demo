@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { uuid } from '@/utils';
 import './index.scss';
 
 /** @type {Array<{ value: string; label: string }>} */
@@ -36,7 +35,6 @@ export default function ProjectForm({ type, label, isShow = false, onConfirm, on
   const onConfirmClick = () => {
     if (!title) return;
     onConfirm({
-      id: uuid(),
       type,
       color,
       emoji,

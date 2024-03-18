@@ -1,3 +1,5 @@
+import { uuid } from '@/utils';
+
 /**
  * @typedef Project
  * @property {"inbox"|"today"|"next7days"} type
@@ -62,7 +64,7 @@ export const selectProjects = state => state.projects;
 const reducer = (state = initState, action) => {
   switch (action.type) {
     case PROJECTS.ADD:
-      return state.concat(action.payload);
+      return state.concat({ ...action.payload, id: uuid() });
     case PROJECTS.DEL:
       return state.filter(item => item.id !== action.payload);
     default:
