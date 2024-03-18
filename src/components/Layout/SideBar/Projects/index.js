@@ -6,6 +6,7 @@ import { BsChevronRight, BsChevronDown, BsPlus, BsX } from 'react-icons/bs';
 import ProjectForm from '@/components/ProjectForm';
 import { selectCurrentActive } from '@/store/reducers/currentActiveSlice';
 import { projectsAddAction, projectsDelAction, selectProjects } from '@/store/reducers/projectsSlice';
+import NoData from '@/components/NoData';
 import './index.scss';
 
 const emojisMap = {
@@ -55,7 +56,7 @@ export default function Projects({ label, items = [] }) {
         )}Projects
       </div>
       {isOpen && <ul className="projects-list">
-        {items.map(item =>
+        {items.length ? items.map(item =>
           <li
             key={item.id}
             className="projects-list__item"
@@ -70,7 +71,7 @@ export default function Projects({ label, items = [] }) {
               <BsX className="del-btn" onClick={e => onProjectsDelClick(e, item)} />
             </NavLink>
           </li>
-        )}
+        ) : <NoData className="projects-list__no-data" text="No Project" />}
       </ul>}
       <div className="projects-add-btn" onClick={() => setIsProjectFormOpen(true)}>
         <BsPlus className="projects-add-btn__icon" />Add Project

@@ -77,7 +77,7 @@ export default function Project() {
             <p className="content">{todoListItem.text}</p>
             <BsX className="del-btn" onClick={e => onDelClick(e, todoListItem)} />
           </li>
-        ) : <NoData />}
+        ) : <NoData className="project__todo-list__no-data" text="No Todo" />}
       </ul>
       <button className="project__add-task-btn" onClick={onAddTaskClick}>
         <BsPlus className="project__add-task-btn__icon" />Add Task
