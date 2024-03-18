@@ -10,9 +10,10 @@
     margin-bottom: 30px;
 
     &__item {
+      position: relative;
       display: flex;
       align-items: center;
-      padding: 20px 0;
+      padding: 20px 30px 20px 0;
       border-bottom: 1px solid #eee;
       word-break: break-all;
       cursor: pointer;
@@ -24,6 +25,15 @@
         &.checked {
           color: #e44231;
         }
+      }
+
+      .del-btn {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        cursor: pointer;
       }
     }
   }

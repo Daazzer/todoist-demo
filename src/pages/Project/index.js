@@ -2,9 +2,9 @@ import { createElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
-import { BsCircle, BsCheckCircleFill, BsPlus } from 'react-icons/bs';
+import { BsCircle, BsCheckCircleFill, BsPlus, BsX } from 'react-icons/bs';
 import { selectProjects } from '@/store/reducers/projectsSlice';
-import { selectTodoList, todoListAddAction, todoListToggleAction } from '@/store/reducers/todoListSlice';
+import { selectTodoList, todoListAddAction, todoListDelAction, todoListToggleAction } from '@/store/reducers/todoListSlice';
 import NoData from '@/components/NoData';
 import './index.scss';
 
@@ -26,16 +26,16 @@ export default function Project() {
   const dispatch = useDispatch();
   let todoFormTextarea = null;
 
-  const onAddTaskClick = () => {
-    setIsTodoFormOpen(true);
-    setText('');
-  };
-
   useEffect(() => {
     if (isTodoFormOpen) {
       todoFormTextarea.focus();
     }
   }, [isTodoFormOpen, todoFormTextarea]);
+
+  const onAddTaskClick = () => {
+    setIsTodoFormOpen(true);
+    setText('');
+  };
 
   const onSubmitClick = () => {
     dispatch(todoListAddAction({
@@ -46,6 +46,11 @@ export default function Project() {
   };
 
   const onCancelClick = () => setIsTodoFormOpen(false);
+
+  const onDelClick = (e, todoListItem) => {
+    e.stopPropagation();
+    dispatch(todoListDelAction(todoListItem.id));
+  };
 
   return (
     <div className="project">
@@ -70,6 +75,7 @@ export default function Project() {
               { className: classNames('checkbox', { checked: todoListItem.isDone }) }
             )}
             <p className="content">{todoListItem.text}</p>
+            <BsX className="del-btn" onClick={e => onDelClick(e, todoListItem)} />
           </li>
         ) : <NoData />}
       </ul>

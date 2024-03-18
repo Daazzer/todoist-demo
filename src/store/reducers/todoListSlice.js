@@ -15,7 +15,8 @@ const initState = [];
  */
 const TODO_LIST = {
   ADD: 'todoList/add',
-  TOGGLE: 'todoList/toggle'
+  TOGGLE: 'todoList/toggle',
+  DEL: 'todoList/del'
 };
 
 export const todoListAddAction = payload => ({
@@ -25,6 +26,11 @@ export const todoListAddAction = payload => ({
 
 export const todoListToggleAction = payload => ({
   type: TODO_LIST.TOGGLE,
+  payload
+});
+
+export const todoListDelAction = payload => ({
+  type: TODO_LIST.DEL,
   payload
 });
 
@@ -46,6 +52,8 @@ const reducer = (state = initState, action) => {
 
         return todoListItem;
       });
+    case TODO_LIST.DEL:
+      return state.filter(todoListItem => todoListItem.id !== action.payload);
     default:
       return state;
   }
