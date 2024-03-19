@@ -1,0 +1,41 @@
+.index {
+  padding: 20px;
+
+  &__title {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 40px;
+  }
+
+  .todo {
+    &__item+.todo__item {
+      margin-top: 20px;
+    }
+
+    &__item {
+      display: flex;
+      justify-content: center;
+      font-size: 30px;
+
+      &__icon {
+        margin-right: 10px;
+        color: #333;
+        cursor: pointer;
+
+        &.checked {
+          color: #e44231;
+        }
+      }
+
+      &__content {
+        width: 650px;
+        border-radius: 999rem;
+        background-color: #333;
+
+        &.checked {
+          background-color: #999;
+        }
+      }
+    }
+  }
+}
