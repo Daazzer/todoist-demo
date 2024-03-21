@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
-import { BsInboxFill } from 'react-icons/bs';
-import { BsCalendar } from 'react-icons/bs';
-import { BsCalendar3 } from 'react-icons/bs';
+import { BsInboxFill, BsCalendar, BsCalendar3 } from 'react-icons/bs';
 import { selectCurrentActive, currentActiveSetAction } from '@/store/reducers/currentActiveSlice';
 import { selectProjects } from '@/store/reducers/projectsSlice';
 import Projects from './Projects';
