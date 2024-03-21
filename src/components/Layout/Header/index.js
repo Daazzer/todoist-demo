@@ -1,35 +1,39 @@
-import { useState } from 'react';
+import { createElement, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Modal, Select, Form, Input } from 'antd';
-import { BsSnapchat, BsPlusLg, BsInboxFill, BsCalendar, BsCalendar3 } from 'react-icons/bs';
+import * as BsIcons from 'react-icons/bs';
 import { currentActiveSetAction } from '@/store/reducers/currentActiveSlice';
 import './index.scss';
 
-const icons = [
-  {
-    value: 'inbox',
-    label: <BsInboxFill />
-  },
-  {
-    value: 'today',
-    label: <BsCalendar />
-  },
-  {
-    value: 'next7days',
-    label: <BsCalendar3 />
-  }
-];
+const { BsSnapchat, BsPlusLg } = BsIcons;
 
-const defaultIcon = icons[0].value
+const icons = Object.entries(BsIcons).map(([key, value]) => ({
+  value: key,
+  label: createElement(value)
+}));
 
 export default function Header() {
   const dispatch = useDispatch(currentActiveSetAction);
+  const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
-  const [icon, setIcon] = useState(defaultIcon);
+  const [label, setLabel] = useState('');
+  const [icon, setIcon] = useState('');
 
   const onAddMenu = () => {
     setOpen(true);
+    form.resetFields();
+  };
+
+  const onOk = async () => {
+    try {
+      await form.validateFields();
+    } catch {
+      return
+    }
+    const data = form.getFieldsValue(true);
+    console.log(data);
+    setOpen(false);
   };
 
   return (
@@ -43,20 +47,39 @@ export default function Header() {
       </div>
       <Modal
         title="Add Menu"
+        width={350}
         open={open}
         onCancel={() => setOpen(false)}
-        width={350}
+        onOk={onOk}
+        maskClosable={false}
       >
-        <Form className="menu-form" labelCol={{ span: 4 }}>
-          <Form.Item label="icon" name="icon" wrapperCol={{ span: 5 }}>
+        <Form
+          autoComplete="off"
+          form={form}
+          labelCol={{ span: 4 }}
+        >
+          <Form.Item
+            label="icon"
+            name="icon"
+            wrapperCol={{ span: 5 }}
+            initialValue={icons[0].value}
+          >
             <Select
               value={icon}
               onChange={value => setIcon(value)}
               options={icons}
             />
           </Form.Item>
-          <Form.Item className="menu-form__field" label="label" name="label">
-            <Input name="label" id="label" />
+          <Form.Item
+            label="label"
+            name="label"
+            initialValue=""
+            rules={[{ required: true }]}
+          >
+            <Input
+              value={label}
+              onInput={value => setLabel(value)}
+            />
           </Form.Item>
         </Form>
       </Modal>
