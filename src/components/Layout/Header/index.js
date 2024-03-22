@@ -17,8 +17,6 @@ export default function Header() {
   const dispatch = useDispatch(currentActiveSetAction);
   const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
-  const [label, setLabel] = useState('');
-  const [icon, setIcon] = useState('');
 
   const onAddMenu = () => {
     setOpen(true);
@@ -64,11 +62,7 @@ export default function Header() {
             wrapperCol={{ span: 5 }}
             initialValue={icons[0].value}
           >
-            <Select
-              value={icon}
-              onChange={value => setIcon(value)}
-              options={icons}
-            />
+            <Select options={icons} />
           </Form.Item>
           <Form.Item
             label="label"
@@ -76,13 +70,10 @@ export default function Header() {
             initialValue=""
             rules={[{ required: true }]}
           >
-            <Input
-              value={label}
-              onInput={value => setLabel(value)}
-            />
+            <Input />
           </Form.Item>
         </Form>
       </Modal>
     </header>
-  )
+  );
 }
