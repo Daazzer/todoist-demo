@@ -2,6 +2,8 @@ import { createElement, useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
+import { Modal } from 'antd';
+import { ExclamationCircleFilled } from '@ant-design/icons';
 import { BsChevronRight, BsChevronDown, BsPlus, BsX } from 'react-icons/bs';
 import ProjectForm from '@/components/ProjectForm';
 import { selectCurrentActiveMenu } from '@/store/reducers/currentActiveMenuSlice';
@@ -28,18 +30,28 @@ export default function Projects({ label, items = [] }) {
 
   const onProjectsDelClick = (e, item) => {
     e.preventDefault();
-    dispatch(projectsDelAction(item.id));
-    const projects = selectProjects(store.getState());
-    const items = projects.filter(project => project.type === item.type);
-    const type = pathname.slice(1).split('/')[0];
-    if (type !== item.type) {
-      return;
-    } else if (items.length) {
-      const lastItem = items[items.length - 1];
-      history.push(`/${lastItem.type}/${lastItem.id}`);
-    } else {
-      history.push('/');
-    }
+    Modal.confirm({
+      title: `是否删除项目“${item.title}”？`,
+      icon: <ExclamationCircleFilled />,
+      okText: '是',
+      okType: 'danger',
+      cancelText: '否',
+      onOk() {
+        dispatch(projectsDelAction(item.id));
+        const projects = selectProjects(store.getState());
+        const items = projects.filter(project => project.menuPath === item.menuPath);
+        const menuPath = pathname.slice(1).split('/')[0];
+        if (menuPath !== item.menuPath) {
+          return;
+        } else if (items.length) {
+          const lastItem = items[items.length - 1];
+          history.push(`/${lastItem.menuPath}/${lastItem.id}`);
+        } else {
+          history.push('/');
+        }
+      },
+      maskClosable: true
+    });
   };
 
   return (
@@ -73,9 +85,9 @@ export default function Projects({ label, items = [] }) {
           </li>
         ) : <NoData className="projects-list__no-data" text="No Project" />}
       </ul>}
-      <div className="projects-add-btn" onClick={() => setIsProjectFormOpen(true)}>
+      <button className="projects-add-btn" onClick={() => setIsProjectFormOpen(true)}>
         <BsPlus className="projects-add-btn__icon" />Add Project
-      </div>
+      </button>
       <ProjectForm
         label={label}
         type={currentActiveMenu}

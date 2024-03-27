@@ -60,11 +60,24 @@
         overflow: hidden;
       }
 
+      &:hover {
+        .del-btn {
+          display: block;
+        }
+      }
+
       .del-btn {
+        display: none;
         position: absolute;
         right: 15px;
+        font-size: 18px;
+        border-radius: 3px;
         top: 50%;
         transform: translateY(-50%);
+
+        &:hover {
+          background-color: #f4f4f4;
+        }
       }
     }
   }
@@ -72,6 +85,7 @@
   &-add-btn {
     display: flex;
     align-items: center;
+    background-color: #fff;
     cursor: pointer;
 
     &__icon {

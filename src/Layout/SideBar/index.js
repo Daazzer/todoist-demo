@@ -33,7 +33,6 @@ export default function SideBar() {
       okType: 'danger',
       cancelText: '否',
       onOk() {
-        console.log('OK');
         dispatch(menusDelAction(item.path));
       },
       maskClosable: true
