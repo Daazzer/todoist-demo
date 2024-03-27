@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import currentActiveReducer from './currentActiveSlice';
+import currentActiveMenuReducer from './currentActiveMenuSlice';
+import menusReducer from './menusSlice';
 import projectsReducer from './projectsSlice';
 import todoListReducer from './todoListSlice';
 
 const reducer = combineReducers({
-  currentActive: currentActiveReducer,
+  currentActiveMenu: currentActiveMenuReducer,
+  menus: menusReducer,
   projects: projectsReducer,
   todoList: todoListReducer
 });

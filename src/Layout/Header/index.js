@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Modal, Select, Form, Input } from 'antd';
 import * as BsIcons from 'react-icons/bs';
-import { currentActiveSetAction } from '@/store/reducers/currentActiveSlice';
+import { currentActiveMenuSetAction } from '@/store/reducers/currentActiveMenuSlice';
+import { menusAddAction } from '@/store/reducers/menusSlice';
 import './index.scss';
 
 const { BsSnapchat, BsPlusLg } = BsIcons;
@@ -14,7 +15,7 @@ const icons = Object.entries(BsIcons).map(([key, value]) => ({
 }));
 
 export default function Header() {
-  const dispatch = useDispatch(currentActiveSetAction);
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
 
@@ -30,13 +31,13 @@ export default function Header() {
       return
     }
     const data = form.getFieldsValue(true);
-    console.log(data);
+    dispatch(menusAddAction(data));
     setOpen(false);
   };
 
   return (
     <header className="header">
-      <Link to="/" onClick={() => dispatch(currentActiveSetAction(''))}>
+      <Link to="/" onClick={() => dispatch(currentActiveMenuSetAction(''))}>
         <img className="logo" src="/images/logo.png" alt="logo" />
       </Link>
       <div className="header__right">
@@ -67,6 +68,14 @@ export default function Header() {
           <Form.Item
             label="label"
             name="label"
+            initialValue=""
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="path"
+            name="path"
             initialValue=""
             rules={[{ required: true }]}
           >

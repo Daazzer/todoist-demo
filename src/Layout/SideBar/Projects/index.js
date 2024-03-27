@@ -4,7 +4,7 @@ import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import { BsChevronRight, BsChevronDown, BsPlus, BsX } from 'react-icons/bs';
 import ProjectForm from '@/components/ProjectForm';
-import { selectCurrentActive } from '@/store/reducers/currentActiveSlice';
+import { selectCurrentActiveMenu } from '@/store/reducers/currentActiveMenuSlice';
 import { projectsAddAction, projectsDelAction, selectProjects } from '@/store/reducers/projectsSlice';
 import NoData from '@/components/NoData';
 import './index.scss';
@@ -22,7 +22,7 @@ export default function Projects({ label, items = [] }) {
   const [isOpen, setIsOpen] = useState(true);
   const [isProjectFormOpen, setIsProjectFormOpen] = useState(false);
   const store = useStore();
-  const currentActive = useSelector(selectCurrentActive);
+  const currentActiveMenu = useSelector(selectCurrentActiveMenu);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -63,7 +63,7 @@ export default function Projects({ label, items = [] }) {
           >
             <NavLink
               className="projects-list__item-nav-link"
-              to={`/${item.type}/${item.id}`}
+              to={`/${item.menuPath}/${item.id}`}
             >
               <i className="color-tag" style={{ backgroundColor: item.color }} />
               <span className="emoji">{emojisMap[item.emoji]}</span>
@@ -78,7 +78,7 @@ export default function Projects({ label, items = [] }) {
       </div>
       <ProjectForm
         label={label}
-        type={currentActive}
+        type={currentActiveMenu}
         isShow={isProjectFormOpen}
         onClose={() => setIsProjectFormOpen(false)}
         onConfirm={project => dispatch(projectsAddAction(project))}
