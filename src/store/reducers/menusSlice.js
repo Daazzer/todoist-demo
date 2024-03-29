@@ -28,8 +28,8 @@ const initState = [
  * @enum {string}
  */
 const MENUS = {
-  ADD: 'projects/add',
-  DEL: 'projects/del'
+  ADD: 'menus/add',
+  DEL: 'menus/del'
 };
 
 export const menusAddAction = payload => ({

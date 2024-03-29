@@ -15,28 +15,28 @@ const initState = [
     menuPath: 'inbox',
     id: 'test1',
     color: '#fe1574',
-    emoji: 'handsUp',
+    emoji: '🙌',
     title: 'THE OFFICEOFFICEOFFICEOFFICEOFFICEOFFICEOFFICEOFFICE'
   },
   {
     menuPath: 'today',
     id: 'test2',
     color: '#fe1574',
-    emoji: 'handsUp',
+    emoji: '😁',
     title: 'THE OFFICE'
   },
   {
     menuPath: 'next7days',
     id: 'test3',
     color: '#fe1574',
-    emoji: 'handsUp',
+    emoji: '🙌',
     title: 'THE OFFICE'
   },
   {
     menuPath: 'next7days',
     id: 'test4',
     color: '#1e1a74',
-    emoji: 'handsUp',
+    emoji: '🤡',
     title: 'THE OFFICE'
   }
 ];
