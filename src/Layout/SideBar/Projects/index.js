@@ -1,14 +1,14 @@
 import { createElement, useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
-import classNames from 'classnames';
 import { ColorPicker, Form, Input, Modal, Select } from 'antd';
+import EmojiPicker from 'emoji-picker-react';
+import classNames from 'classnames';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { BsChevronRight, BsChevronDown, BsPlus, BsX } from 'react-icons/bs';
 import { selectCurrentActiveMenu } from '@/store/reducers/currentActiveMenuSlice';
 import { projectsAddAction, projectsDelAction, selectProjects } from '@/store/reducers/projectsSlice';
 import NoData from '@/components/NoData';
-import EmojiPicker from 'emoji-picker-react';
 import './index.scss';
 
 export default function Projects({ label, items = [] }) {
