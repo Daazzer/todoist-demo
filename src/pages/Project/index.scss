@@ -18,6 +18,10 @@
       word-break: break-all;
       cursor: pointer;
 
+      .content.done {
+        text-decoration: line-through;
+      }
+
       .checkbox {
         flex-shrink: 0;
         margin-right: 10px;

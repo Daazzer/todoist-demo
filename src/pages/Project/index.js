@@ -70,7 +70,7 @@ export default function Project() {
                 : BsCircle,
               { className: classNames('checkbox', { checked: todoListItem.isDone }) }
             )}
-            <div className="content">{todoListItem.text}</div>
+            <div className={classNames('content', { done: todoListItem.isDone })}>{todoListItem.text}</div>
             <BsX className="del-btn" onClick={e => onDelClick(e, todoListItem)} />
           </li>
         ) : <NoData className="project__todo-list__no-data" text="No Todo" />}
