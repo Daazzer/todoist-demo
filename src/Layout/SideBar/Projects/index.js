@@ -107,13 +107,17 @@ export default function Projects({ label, items = [] }) {
         <BsPlus className="projects-add-btn__icon" />Add Project
       </button>
       <Modal
-        open={isProjectFormOpen}
         title={`Add Project For "${label}"`}
+        maskClosable={false}
+        open={isProjectFormOpen}
         onCancel={() => setIsProjectFormOpen(false)}
         onOk={onProjectOk}
-        maskClosable={false}
       >
-        <Form form={form} labelCol={{ span: 4 }} labelAlign="left">
+        <Form
+          labelAlign="left"
+          labelCol={{ span: 4 }}
+          form={form}
+        >
           <Form.Item
             label="Color"
             name="color"
