@@ -27,13 +27,23 @@
         }
       }
 
+      &:hover .del-btn {
+        visibility: visible;
+      }
+
       .del-btn {
+        visibility: hidden;
         position: absolute;
         right: 0;
         top: 50%;
         transform: translateY(-50%);
         font-size: 20px;
+        border-radius: 3px;
         cursor: pointer;
+
+        &:hover {
+          background-color: #f4f4f4;
+        }
       }
     }
 

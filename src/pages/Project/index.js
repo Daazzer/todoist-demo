@@ -24,9 +24,7 @@ export default function Project() {
   const onAddTaskClick = () => {
     setIsTodoFormOpen(true);
     form.resetFields();
-    setTimeout(() => {
-      textRef.current?.focus({ cursor: 'start' });
-    }, 10);
+    setTimeout(() => textRef.current?.focus(), 1);
   };
 
   const onSubmitClick = async () => {
